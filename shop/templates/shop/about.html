@@ -1,8 +1,116 @@
 {% extends 'shop/base.html' %}
 
-{% block title %} About tile{% endblock title %}
-
+{% block title %} About {% endblock %}
 
 {% block body %}
-    <h1>This is body </h1>
-{% endblock body %}
+    <div class="container">
+        <main role="main">
+
+            <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-3">Hello, world!</h1>
+                    <p>Daraz is an online marketplace and logistics company which operates in markets of South Asia and
+                        Southeast Asia. It was founded in 2012 as an online fashion e-commerce marketplace in Pakistan
+                        by Muneeb Maayr Founder) & Farees Shah (Co-Founder) at the based venture builder, Rocket
+                        Internet. Daraz Group operates e-commerce platforms and logistics service in Bangladesh,
+                        Myanmar, Nepal, Pakistan and Sri Lanka.[1] Bjarke Mikkelsen is the current CEO of Daraz.[2][3]
+                        In May 2018,
+                        Daraz Group was acquired by the Chinese e-commerce company Alibaba Group from th German venture
+                        capital company,</p>
+                    <p>
+                    <p>Daraz is an online marketplace and logistics company which operates in markets of South Asia and
+                        Southeast Asia. It was founded in 2012 as an online fashion e-commerce marketplace in Pakistan
+                        by Muneeb Maayr Founder) & Farees Shah (Co-Founder) at the based venture builder, Rocket
+                        Internet. Daraz Group operates e-commerce platforms and logistics service in Bangladesh,
+                        Myanmar, Nepal, Pakistan and Sri Lanka.[1] Bjarke Mikkelsen is the current CEO of Daraz.[2][3]
+                        In May 2018,
+                        Daraz Group was acquired by the Chinese e-commerce company Alibaba Group from th German venture
+                        capital company,</p>
+                    <p>
+                    <p>Daraz is an online marketplace and logistics company which operates in markets of South Asia and
+                        Southeast Asia. It was founded in 2012 as an online fashion e-commerce marketplace in Pakistan
+                        by Muneeb Maayr Founder) & Farees Shah (Co-Founder) at the based venture builder, Rocket
+                        Internet. Daraz Group operates e-commerce platforms and logistics service in Bangladesh,
+                        Myanmar, Nepal, Pakistan and Sri Lanka.[1] Bjarke Mikkelsen is the current CEO of Daraz.[2][3]
+                        In May 2018,
+                        Daraz Group was acquired by the Chinese e-commerce company Alibaba Group from th German venture
+                        capital company,</p>
+                    <p>
+
+                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- Example row of columns -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>Heading</h2>
+                        <p>Daraz is an online marketplace and logistics company which operates in markets of South Asia
+                            and Southeast Asia. It was founded in 2012 as an online fashion e-commerce marketplace in
+                            Pakistan by Muneeb Maayr Founder) & Farees Shah (Co-Founder) at the based venture builder,
+                            Rocket Internet. Daraz Group operates e-commerce platforms and logistics service in
+                            Bangladesh, Myanmar, Nepal, Pakistan and Sri Lanka.[1] Bjarke Mikkelsen is the current CEO
+                            of Daraz.[2][3] In May 2018,
+                            Daraz Group was acquired by the Chinese e-commerce company Alibaba Group from th German
+                            venture capital company,</p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Heading</h2>
+                        <p>Daraz was founded as an online fashion retailer in Pakistan in 2012 by Muneeb Maayr (Founder)
+                            & Farees Shah (Co-Founder) while Muneeb Maayr was working at Rocket Internet. Daraz's
+                            initial funding and work came from Rocket Internet but was later changed to a general
+                            marketplace strategy and business model in 2015 when it also launched operations in
+                            Bangladesh and Myanmar.[4][5] </p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Heading</h2>
+                        <p>In September 2015, Daraz secured 50 million euros in its Series B funding in order to expand
+                            operations in Bangladesh, Myanmar and Pakistan. CDC Group, a state-owned Development Finance
+                            Institution (DFI) in the UK,[6] invested €20 million alongside a €30 million investment from
+                            Daraz's existing majority shareholder, Asia Internet Holdings.[7][8]</p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                    </div>
+                </div>
+
+                <hr>
+
+            </div> <!-- /container -->
+
+        </main>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        {#console.log("Hello sifat");#}
+        if (localStorage.getItem('cart') == null) {
+            var cart = {}
+        } else {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            document.getElementById('cart').innerHTML = Object.keys(cart).length;
+            console.log(cart)
+        }
+
+        $('.cart').click(function () {
+            console.log('Clicked');
+            let idstr = this.id.toString();
+            {#console.log(idstr)#}
+            if (cart[idstr] != undefined) {
+                cart[idstr] = cart[idstr] + 1;
+            } else {
+                cart[idstr] = 1
+            }
+            {#console.log(sum(cart));#}
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.getElementById('cart').innerHTML = sum(Object.keys(cart).length);
+        });
+        $(document).ready(function () {
+            $('#popcart').popover();
+        });
+        document.getElementById('popcart').setAttribute("data-content", '<h5>Cart for your items my shopping cart.</h5>')
+
+    </script>
+{% endblock %}

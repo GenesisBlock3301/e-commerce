@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery</title>
+</head>
+<body>
+<ul id="list">
+    <li>Tea</li>
+    <li>Cofee</li>
+</ul>
+<button type="submit" onclick="myFunc()">Click me</button>
+<div id="mydiv">
+</div>
+<div id="container">
+
+</div>
+<script>
+
+    function myFunc() {
+        let x =
+            "<ul>" +
+            "<li>Tea </li>" +
+            "<li>Cofee</li>" +
+            "</ul>";
+        //console.log(x)
+        document.getElementById('mydiv').innerHTML = x;
+    }
+
+    let str = "<ul>";
+    const arr = [1, 2, 3, 4, 44];
+    arr.map((item) => {
+        str += "<li>" + item + "</li>"
+    });
+    str = str + "</ul>";
+    document.getElementById('container').innerHTML = str;
+
+</script>
+</body>
+</html>
