@@ -5,65 +5,98 @@
 
 {% block body %}
     <div class="container" style="margin-top: 55px">
-        <div class="col my-2">
+        <div class="col my-4">
             <h2>E-ccomerce Checkout- Review our Cart item</h2>
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cras justo odio
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Dapibus ac facilisis in
-                    <span class="badge badge-primary badge-pill">2</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Morbi leo risus
-                    <span class="badge badge-primary badge-pill">1</span>
-                </li>
-            </ul>
+            <div class="mt-4">
+                <ul class="list-group" id="items">
+
+                </ul>
+            </div>
         </div>
         <div class="col">
             <h2>step-2-Enter address and other detail:</h2>
-            <form>
+            <form method="post" action="/shop/checkout/">
+                {% csrf_token %}
+                <input type="hidden" id="itemJson" name="itemJson">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputName">Name</label>
-                        <input type="text" placeholder="Name" class="form-control" id="inputName">
+                        <input type="text" placeholder="Name" class="form-control" id="name">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" placeholder="Email" id="inputEmail4">
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <input type="text" class="form-control" id="address1" name="address1" placeholder="address">
                 </div>
                 <div class="form-group">
                     <label for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2"
-                           placeholder="Apartment, studio, or floor">
+                    <input type="text" class="form-control" id="address2" placeholder="Apartment, studio, or floor"
+                           name="address2">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputCity">City</label>
-                        <input type="text" class="form-control" placeholder="Enter city" id="inputCity">
+                        <input type="text" class="form-control" placeholder="Enter city" id="city" name="city">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputState">State</label>
-                        <input type="text" class="form-control" placeholder="Enter state" id="inputState">
+                        <input type="text" class="form-control" placeholder="Enter state" id="state" name="state">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" placeholder="Enter Zip" id="inputZip">
+                        <input type="text" class="form-control" placeholder="Enter Zip" id="zip_code" name="zip_code">
                     </div>
                 </div>
-                  <div class="form-group">
-                        <label for="inputPhone">Phone Number: </label>
-                        <input type="text" class="form-control" placeholder="Enter Phone number" id="inputPhone">
-                    </div>
+                <div class="form-group">
+                    <label for="inputPhone">Phone Number: </label>
+                    <input type="text" class="form-control" placeholder="Enter Phone number" id="phone" name="phone">
+                </div>
                 <button type="submit" class="btn btn-primary">Place order</button>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        // find out the Cart from Local storage if not exist create cart
+        if (localStorage.getItem('cart') == null) {
+            var cart = {}
+        } else {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+
+
+        let mystr = "";
+        let sum = 0
+        if ($.isEmptyObject(cart)) {
+            mystr += "<p>Your cart is empty please add to cart some item</p>"
+            //$('#items').append(mystr)
+        } else {
+
+            for (let item in cart) {
+                //console.log(item)
+                let name = cart[item][1];
+                let qty = cart[item][0];
+                sum += qty
+                mystr += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${name}
+                        <span class="badge badge-primary badge-pill">${qty}</span>
+                    </li>`;
+                ///////////Second approach//////////////
+                //$('#items').append(mystr)
+            }
+        }
+        document.getElementById('items').innerHTML = mystr;
+        document.getElementById('cart').innerHTML = sum;
+
+        $('#itemJson').val(JSON.stringify(cart));
+        if {% thank %}
+            //alert()
+        localStorage.clear()
+    </script>
 {% endblock %}

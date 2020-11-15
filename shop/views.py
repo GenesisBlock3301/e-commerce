@@ -59,4 +59,17 @@ def prodView(request,id):
 
 
 def checkout(request):
+    if request.method == "POST":
+        name = request.POST.get('name','')
+        email = request.POST.get('email','')
+        address = request.POST.get('address1','') + request.POST.get('address2','')
+        city = request.POST.get('city','')
+        zip_code = request.POST.get('zip_code','')
+        phone = request.POST.get('phone','')
+        desc = request.POST.get('desc','')
+        checkout = request.POST.get('checkout','')
+        order = Order.objects.create(name=name, email=email,address=address ,city=city,zip_code=zip_code,phone=phone)
+        order.save()
+        thank = True
+        return render(request, 'shop/checkout.html',{'thanks':thank})
     return render(request, 'shop/checkout.html')
