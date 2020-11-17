@@ -1,19 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
+from django.shortcuts import render,HttpResponse
 from .models import *
 from math import ceil
 from django.shortcuts import get_object_or_404
+import json
+
 
 def index(request):
-    # products = Product.objects.all()
-    # params = {
-    #     'products': products,
-    # }
-    # all_Prods = [[products],[products]]
-    # params = {
-    #     'allProds':all_Prods
-    # }
     allProds = []
     catprods = Product.objects.values('category', 'id')
     cats = {item['category'] for item in catprods}
@@ -43,6 +35,23 @@ def contact(request):
 
 
 def tracker(request):
+    if request.method == "POST":
+        orderId = request.POST.get('orderId','')
+        email = request.POST.get('email','')
+        # return HttpResponse(f"{orderId} and {email}")
+        try:
+            order = Order.objects.filter(order_id=orderId,email=email)
+            if len(order) > 0:
+                update = OrderUpdate.objects.filter(order_id=orderId)
+                updates = []
+                for item in update:
+                    updates.append({'text':item.update_desc,'time':item.timestamp})
+                    response = json.dumps(updates,default=str)
+                return HttpResponse(response)
+            else:
+                return HttpResponse('{}')
+        except Exception as e:
+            return HttpResponse('{}')
     return render(request, 'shop/tracker.html')
 
 
@@ -60,6 +69,7 @@ def prodView(request,id):
 
 def checkout(request):
     if request.method == "POST":
+        items_json = request.POST.get('itemJson','')
         name = request.POST.get('name','')
         email = request.POST.get('email','')
         address = request.POST.get('address1','') + request.POST.get('address2','')
@@ -68,8 +78,11 @@ def checkout(request):
         phone = request.POST.get('phone','')
         desc = request.POST.get('desc','')
         checkout = request.POST.get('checkout','')
-        order = Order.objects.create(name=name, email=email,address=address ,city=city,zip_code=zip_code,phone=phone)
+        order = Order.objects.create(items_json=items_json,name=name,email=email,address=address ,city=city,zip_code=zip_code,phone=phone)
         order.save()
+        update = OrderUpdate(order_id=order.order_id,update_desc="The order has been placed.")
+        update.save()
         thank = True
-        return render(request, 'shop/checkout.html',{'thanks':thank})
+        id = order.order_id
+        return render(request, 'shop/checkout.html',{'thank':thank,'id':id})
     return render(request, 'shop/checkout.html')

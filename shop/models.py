@@ -8,7 +8,7 @@ class Product(models.Model):
     subcategory = models.CharField(max_length=55,default="")
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to='shop/images',default="")
-    desc = models.CharField(max_length=300)
+    desc = models.CharField(max_length=500)
     pub_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -36,4 +36,14 @@ class Order(models.Model):
     state = models.CharField(max_length=88)
     zip_code = models.CharField(max_length=88)
     phone = models.CharField(max_length=88,default='')
+
+
+class OrderUpdate(models.Model):
+    update_id = models.AutoField(primary_key=True)
+    order_id = models.IntegerField(default="")
+    update_desc = models.CharField(max_length=5000)
+    timestamp = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.update_desc[:2]+"..."
 

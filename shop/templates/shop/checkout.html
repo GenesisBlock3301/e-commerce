@@ -21,7 +21,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputName">Name</label>
-                        <input type="text" placeholder="Name" class="form-control" id="name">
+                        <input type="text" placeholder="Name" class="form-control" id="name" name="name">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail">Email</label>
@@ -72,7 +72,7 @@
 
 
         let mystr = "";
-        let sum = 0
+        let sum = 0;
         if ($.isEmptyObject(cart)) {
             mystr += "<p>Your cart is empty please add to cart some item</p>"
             //$('#items').append(mystr)
@@ -95,8 +95,11 @@
         document.getElementById('cart').innerHTML = sum;
 
         $('#itemJson').val(JSON.stringify(cart));
-        if {% thank %}
-            //alert()
-        localStorage.clear()
+        {% if thank %}
+            alert("Thanks for ordering . Your order is {{ id }}. Use it to track your id using your order tracker.");
+            localStorage.clear();
+            // redirect url
+            document.location = "/shop/";
+        {% endif %}
     </script>
 {% endblock %}
