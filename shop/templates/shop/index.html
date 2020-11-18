@@ -124,13 +124,14 @@
 
             } else {
                 let qty = 1;
-                let name = document.getElementById('name' + idstr).innerHTML
-                cart[idstr] = [qty, name]
+                let name = document.getElementById('name' + idstr).innerHTML;
+                let price = document.getElementById('price' + idstr).innerHTML;
+                cart[idstr] = [qty, name, parseInt(price)]
             }
             updateCart(cart)
         });
 
-
+        console.log(cart)
         ///////////////////Add Popover to cart////////////////////
         $('#popcart').popover();
         updatePopover(cart);
@@ -191,7 +192,7 @@
             cart['pr' + a][0] = cart['pr' + a][0] - 1;
             cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
             //if (cart['pr'+a][0] == 0){
-              //  clearCart()
+            //  clearCart()
             //}
             updateCart(cart);
             updatePopover(cart);
