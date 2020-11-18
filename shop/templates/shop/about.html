@@ -105,12 +105,21 @@
             }
             {#console.log(sum(cart));#}
             localStorage.setItem('cart', JSON.stringify(cart));
-            document.getElementById('cart').innerHTML = sum(Object.keys(cart).length);
+            //{#document.getElementById('cart').innerHTML = sum(Object.keys(cart).length);#}
         });
         $(document).ready(function () {
             $('#popcart').popover();
         });
         document.getElementById('popcart').setAttribute("data-content", '<h5>Cart for your items my shopping cart.</h5>')
+
+        ///cart items
+
+        let sum = 0;
+        for (let item in cart) {
+            let qty = cart[item][0];
+            sum += qty;
+        }
+        document.getElementById('cart').innerHTML = sum;
 
     </script>
 {% endblock %}

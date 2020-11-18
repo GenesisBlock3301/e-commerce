@@ -3,7 +3,7 @@
 {% block title %}contact{% endblock %}
 
 {% block body %}
-    <div class="container my-3">
+    <div class="container" style="margin-top: 75px">
         <h3>Contact Us</h3>
         <form action="/shop/contact/" method="post">
             {% csrf_token %}
@@ -32,4 +32,21 @@
 
     </div>
 
+{% endblock %}
+
+{% block js %}
+    <script>
+        if (localStorage.getItem('cart') == null) {
+            var cart = {}
+        } else {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+
+        let sum = 0;
+        for (let item in cart) {
+            let qty = cart[item][0];
+            sum += qty;
+        }
+        document.getElementById('cart').innerHTML = sum;
+    </script>
 {% endblock %}

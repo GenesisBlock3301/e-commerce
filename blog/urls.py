@@ -2,6 +2,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index,name="bog-home"),
+    path('', views.index,name="bogHome"),
 
 ]
