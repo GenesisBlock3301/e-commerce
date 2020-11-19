@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse
 from .models import *
 from math import ceil
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 import json
 
 
@@ -34,6 +35,7 @@ def contact(request):
     return render(request, 'shop/contact.html')
 
 
+@login_required
 def tracker(request):
     if request.method == "POST":
         orderId = request.POST.get('orderId','')
@@ -67,7 +69,7 @@ def prodView(request,id):
     print(product)
     return render(request, 'shop/prodView.html',{'product':product})
 
-
+@login_required
 def checkout(request):
     if request.method == "POST":
         items_json = request.POST.get('itemJson','')
