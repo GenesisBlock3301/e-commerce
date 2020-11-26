@@ -112,5 +112,8 @@
             // redirect url
             document.location = "/shop/";
         {% endif %}
+    $("#lgout").click(function () {
+            localStorage.clear()
+        })
     </script>
 {% endblock %}

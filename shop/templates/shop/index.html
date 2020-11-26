@@ -203,8 +203,11 @@
             cart['pr' + a][0] = cart['pr' + a][0] + 1;
             updateCart(cart);
             updatePopover(cart);
+        });
+        $("#lgout").click(function () {
+            localStorage.clear();
+            clearCart()
         })
-
 
     </script>
 {% endblock %}

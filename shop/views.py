@@ -40,7 +40,6 @@ def tracker(request):
     if request.method == "POST":
         orderId = request.POST.get('orderId','')
         email = request.POST.get('email','')
-        # return HttpResponse(f"{orderId} and {email}")
         try:
             order = Order.objects.filter(order_id=orderId,email=email)
             # return HttpResponse(f"{str(order)}")
@@ -62,7 +61,7 @@ def search(request):
     return render(request, 'shop/search.html')
 
 
-def prodView(request,id):
+def prodView(request, id):
     #fetch the product using id
     product = Product.objects.get(id=id)
     # product = get_object_or_404(Product,id=id)
